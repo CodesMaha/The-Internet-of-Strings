@@ -7,15 +7,27 @@ this is the heart of the project,
 it is the implementation of all features
 '''
 
+import logging
+logging.basicConfig(level=logging.DEBUG, format="%(levelname)s: %(message)s")
+logging.debug("\n\nHi, I am a message from the `logging` module in the `execution.py` file. \nDon't forget to let my module and I leave once this project is finished!\n")
+
 from . import cmds as c # in case a command name is changed, this file will stay error-free
 from . import other_saved_data as d # contains username, password a & b, progress
+# from string import ascii_lowercase
 
-def run_cmd(cmd: list, _all_cmd_info: list[list, list], _all_cmd_names, _all_file_info, _all_saved_file_info: list[list[str, bool, str]]) -> tuple[bool, str]:
+def run_cmd(
+    cmd: list[str], 
+    _all_cmd_info: list[list[str, str, list | None], tuple[str, str]], 
+    _all_file_info: list[str, bool, str], 
+    _all_saved_file_info: list[list[str, bool, str]]
+    ) -> tuple[bool, str]:
+
+    ''' run any cmd given by the player '''
     
     package_name = 'external' # script run in working directory outside package, 
     # so package_name from the perspective of ..
     
-    cmd = [cmd[0], " ".join(cmd[1:])] 
+    cmd: list[str, str] = [cmd[0], " ".join(cmd[1:])] 
     # some sub commands are over a word, but commands cannot be like that, unlike open
 
 
@@ -40,9 +52,12 @@ def run_cmd(cmd: list, _all_cmd_info: list[list, list], _all_cmd_names, _all_fil
 
     def save_to_data() -> None:
 
-        if d.progress == 0:
-            d.username = 'User'
-            d.password_b = '********'
+        if d.progress == 0: # # copy paste from default_values
+            with open(f'{package_name}/default_values.py', 'r') as f:
+                content = f.read()
+            with open(f'{package_name}/other_saved_data.py', 'w') as f:
+                f.write(content)
+            return # do not rewrite file
 
         with open(f'{package_name}/other_saved_data.py', 'w') as f:
             f.write(
@@ -65,8 +80,10 @@ and still believe most of our traffic comes from manufacturers allowing us to sh
 
 See other popular codes:
 - {c.VIEW_CONTROLS[0]} {c.USERNAME[0]}
+- {c.VISIT_SITE[0]} {c.NEWS[0]}
 - {c.VIEW_CONTROLS[0]} {c.HELP[0]}
 - {c.OPEN[0]} filename
+- {c.MSG[0]} {c.ALL[0]}
 - ...'''
             )
 
@@ -90,11 +107,59 @@ If you don't have one, email us and we may assess your eligibility.'''
 
             if user_input == d.password_b:
                 print(
-"""If you're reading this, it's because you're a new employee and another person at the government decided to give you access to the secret information regarding our secret mission. Do not give anyone else access to this passcode unless you or they are trusted. 
+"""If you're reading this, it's because you're a new employee and another person at the government decided to give you access to the below information regarding our secret mission. Do not give anyone else access to this passcode unless you or they are trusted. 
 
-Welcome, we hope you have a good stay during your employment here."""
-)
-    
+Welcome, we hope you have a good stay during your employment here.
+
+You must already know very well that those with warmer tone streaks on the back of their hands are inferior to those with cooler tone streaks. The specific government segment that is in charge of the executions of such people is named 'The Agency For Democide' or the 'AFD'.
+
+Employees of the democide agency can have multiple roles; they can be in charge of editing the database of targets, locating targets, or hunting down targets. They may also be responsible for any related technology or infrastructure.
+
+To disguise as a person with a streak of a specifc colour, we have invented a yet to be released to the public technology that changes the colour of said streaks for the aforementioned goal. Unfortunately, we have lost an amulet from our warehouse, which can be detrimental to the secrecy of our mission. If you find it, do return it to us for you will be rewarded handsomely.
+
+The room these employees work in is under the number 239, next to the laboratory for the creation of sedating drugs."""
+                )
+
+        
+        if cmd[1] == c.NEWS[0]:
+            print(
+f"""Welcome! \nWe release a news article every month.
+
+Here is our most popular one of the year:
+
+1. All executions STOPPED!
+
+Our other articles:
+
+2. Are people CHANGING STREAKS?
+3. ...
+
+Is there a particular article you'd like to read?
+Enter in its index down below!"""
+            )
+
+            while True:
+                user_input = input("\nIndex: ")
+
+                try:
+                    user_input = int(user_input)
+                    break
+                except ValueError:
+                    print('\nNon-numeric input detected...')
+                    continue
+
+            print('\nYour chosen article:') # TODO: write both articles
+            
+            if user_input == 1:
+                print(
+f"""All executions STOPPED!"""
+                )
+
+            if user_input == 2:
+                print(
+f"""Are people CHANGING STREAKS?"""
+                )
+
 
     if cmd[0] == c.VIEW_CONTROLS[0]:
 
@@ -106,6 +171,7 @@ Instead, this note was found:
 'I really dislike bookmarking things. 
 If I really liked something that much, I would remember its code myself.'"""
             )
+
 
         if cmd[1] == c.USERNAME[0]:
             print(f"Your current username is '{d.username}'.")
@@ -122,8 +188,8 @@ If I really liked something that much, I would remember its code myself.'"""
         if cmd[1] == c.HELP[0]:
 
             print('\nAll available commands:')
-            for index, item in enumerate(_all_cmd_names[0], 1):
-                print(f"{index}. '{item}';")
+            for index, item in enumerate(_all_cmd_info[0], 1):
+                print(f"{index}. '{item[0]}';")
 
 
         if cmd[1] == c.ALL_SAVED_FILES[0]:
@@ -138,6 +204,8 @@ If I really liked something that much, I would remember its code myself.'"""
 
 
     if cmd[0] == c.DEFINE[0]:
+        # connect both lists in list so that
+        # both cmds and sub cmds can be checked at once
         chosen_list = _all_cmd_info[0]
         chosen_list.extend(_all_cmd_info[1])
 
@@ -152,52 +220,67 @@ If I really liked something that much, I would remember its code myself.'"""
 
     if cmd[0] == c.OPEN[0]:
 
-        # cmd has two words, sub cmd can have two words
-        cmd: list[list[str], list[str, str]] = [[cmd[0]], cmd[1].split(" ", 1)] # [-1] already made wholly string
-        cmd[0].extend(cmd[1])
-        cmd: list[str, str] = cmd[0]
+        # cmd has two words, sub cmd can have over two words
+        cmd: list[str, str] = [cmd[0], " ".join(cmd[1].split(" "))] # [-1] already made wholly string
 
-        for i in range(2):
+        for i in range(2): # done twice, once for files and other for _all_saved_file_info
             chosen_list = _all_file_info if i < 1 else _all_saved_file_info
 
-            for item in chosen_list:
-                if cmd[1] == item[0]:
+            for item in chosen_list: # if saved_files list is empty, loop will not run
+                if cmd[1] != item[0]:
+                    continue
                     
-                    if item[1] == False:
-                        user_input = input('This file is untrusted by the system.\nWould you still like to open it? (y/n): ')
-                        return val_return(False) if user_input.strip().lower() == 'y' else item[1] == True
-                    
-                    print(f"\nContent of '{item[0]}':\n{item[2]}")
+                if item[1] == False:
+                    user_input = input('This file is untrusted by the system.\nWould you still like to open it? (y/n): ')
+                    return val_return(False) if user_input.strip().lower() == 'y' else item[1] == True
+                    # when bool becomes true, the if statement gets passed before the return is carried out
+                
+                print(f"\nContent of '{item[0]}':\n{item[2]}") # display content and name
 
-                    if i > 0:
-                        user_input = input('\nWould you like to overwrite this file? (y/n): ')
-                        if user_input.strip().lower() == 'y':
-                            user_input = input('\nNew content:\n')
-                            item[2] = user_input
-
-                            save_files(_all_saved_file_info)
-                            print('\nFile overwritten; new content saved in system.')
+                if i < 1: # would not like to overwrite preexisting story file
+                    return val_return() 
+                
+                user_input = input('\nWould you like to overwrite this file? (y/n): ')
+                if user_input.strip().lower() != 'y': # if overwriting newly saved file
                     return val_return()
+                user_input = input('\nNew content:\n')
+                item[2] = user_input
+
+                save_files(_all_saved_file_info)
+                print('\nFile overwritten; new content saved in system.')
+                return val_return()
             
         print('Could not find file from inputted filename.')
 
 
     if cmd[0] == c.DOCUMENT[0]:
-        cmd: list[str, str] = [cmd[0], " ".join(cmd[1:])]
 
-        if cmd[1].strip().lower() == 'all':
+        _all_file_names = [filename[0] for filename in _all_file_info] 
+        # player saved files and files should not have identical names;
+        # whichever one is checked for first will open instead of the actual one the player intended.
+
+        if len(_all_saved_file_info) > 0:
+            _all_saved_file_names = [filename[0] for filename in _all_saved_file_names]
+            # same except there is a chance there are no files in saved_files
+
+        if cmd[1] == c.ALL[0]:
             print(f"\nCannot name file 'all' as that is a sub-command for deleting all recently saved files.\nWill instead name it '_{cmd[1]}'.")
+            cmd[1] = f'_{cmd[1]}'
+
+        elif cmd[1] in _all_file_names: # check for identical names with preexisting default system files
+            print(f"\nCannot name file '{cmd[1]}' as that is the name of an older file in the system.\nWill instead name it '_{cmd[1]}'.")
             cmd[1] = f'_{cmd[1]}'
         
         user_input = input('\nFile content:\n')
 
         _all_saved_file_info.append([cmd[1], True, user_input])
         save_files(_all_saved_file_info)
+        print('File saved in system.')
 
 
     if cmd[0] == c.DELETE[0]:
 
-        if cmd[1].strip().lower() == 'all':
+        if cmd[1].strip().lower() == c.ALL[0]:
 
             if len(_all_saved_file_info) < 1:
                 print('You have not saved any files.')
@@ -231,7 +314,30 @@ If I really liked something that much, I would remember its code myself.'"""
         print('Could not find file from inputted filename.')
         return val_return(False)
     
+
+    if cmd[0] == c.MSG[0]:
+
+        if cmd[1] == c.ALL[0]:
+            for index, name in enumerate(c.MSG[2][1:], 1):
+                print(f'{index}. "{name[0].lower()}";') # all arg should always come first
+            return val_return()
+
+        if cmd[1] == c.MEL[0]:
+            from .messages import MSGS_W_MEL as CHOSEN_MSGS
+
+        elif cmd[1] == c.BAD_SUP[0].lower(): # AFD is uppercase in cmds module
+            from .messages import MSGS_W_BAD_SUP as CHOSEN_MSGS
+
+        elif cmd[1] == c.GOOD_SUP[0]:
+            from .messages import MSGS_W_GOOD_SUP as CHOSEN_MSGS
+
+        else:
+            print(f'Could not find {cmd[1]} in contacts.')
+            return val_return(False)
+        
+        print("\n" + CHOSEN_MSGS)
     
+
     if d.progress < 1:
         d.progress = 1 # first progress is opening the game and running a cmd, 
         # but running a cmd successfully which is why this is at the end

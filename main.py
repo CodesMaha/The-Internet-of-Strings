@@ -2,6 +2,7 @@
 from external import cmds, files, saved_files
 from external.execution import run_cmd
 from external.other_saved_data import username
+from external.files import most_sentimental
 
 from platform import system
 curr_sys = system()
@@ -18,11 +19,11 @@ for attr in [attr for attr in dir(cmds) if ('__' not in attr) and (attr.isupper(
         all_cmd_info[0].append(attr) # cmd
     if isinstance(attr, tuple):
         all_cmd_info[1].append(attr) # sub cmd
+del attr
 
-# retrieve names of cmds, which is first time of each
-all_cmd_names: list[list[str], list[str]] = [[], []]
-all_cmd_names[0] = [attr[0] for attr in all_cmd_info[0]] # cmd
-all_cmd_names[1] = [attr[0] for attr in all_cmd_info[1]] # sub cmd
+# retrieve names of cmds, which is first time of each,
+# excluding sub cmds since they are not checked for
+all_cmd_names: list[str] = [attr[0] for attr in all_cmd_info[0]]
 
 # retrieve data from files module
 all_file_info = [getattr(files, attr) for attr in dir(files) if ('__' not in attr)]
@@ -38,17 +39,18 @@ match curr_sys:
         system(f'title {app_name}')
         del system
 
-    case 'Linux' | 'Darwin':
+    case 'Linux' | 'Darwin': # for cross platform compatibility
         from sys import stdout
         stdout.write(f"\033]0;{app_name}\007")
         stdout.flush()
         del stdout
 
-    case _:
+    case _: # any other system does not get this privilege
         pass
 
 # intro
-print(f"Welcome, {username}! \nFeel free to input the command '{cmds.VISIT_SITE[0]} {cmds.SEE_POP[0]}' if you're just starting out.")
+print(f"Welcome, {username}! \nFeel free to input the command '{cmds.VISIT_SITE[0]} {cmds.SEE_POP[0]}' if you're just starting out." + f'\n\nAdditionally, your most visited file is "{most_sentimental[0]}".')
+del most_sentimental
 
 def ask_user() -> list:
     if_invalid = lambda inputted: f'"{inputted}" is unrecognised code.' # to maintain consistency
@@ -67,7 +69,9 @@ def ask_user() -> list:
             print(if_invalid(''.join(user_input)))
             continue
         
-        if not (user_input[0] in all_cmd_names[0]): # cmds like define can accept both cmds and sub cmds
+        if not (user_input[0] in all_cmd_names): 
+            # cmds like define can accept both cmds and sub cmds,
+            # so sub cmds are not checked for in this input sanitization
             print(if_invalid(' '.join(user_input)))
             continue
 
@@ -76,5 +80,5 @@ def ask_user() -> list:
     return user_input # list
 
 while True:
-    error_free, username = run_cmd(ask_user(), all_cmd_info, all_cmd_names, all_file_info, all_saved_file_info)
+    error_free, username = run_cmd(ask_user(), all_cmd_info, all_file_info, all_saved_file_info)
     print(f'\nCode executed. {error_free = }')
