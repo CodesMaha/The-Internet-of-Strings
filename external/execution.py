@@ -123,15 +123,15 @@ The room these employees work in is under the number 239, next to the laboratory
         
         if cmd[1] == c.NEWS[0]:
             print(
-f"""Welcome! \nWe release a news article every month.
+f"""Welcome! \nWe have the world's largest database of articles.
 
-Here is our most popular one of the year:
+Here is the most popular one of the year so far:
 
-1. All executions STOPPED!
+1. All Executions Just STOPPED
 
-Our other articles:
+Other popular articles:
 
-2. Are people CHANGING STREAKS?
+2. Are People CHANGING STREAKS?
 3. ...
 
 Is there a particular article you'd like to read?
@@ -151,13 +151,15 @@ Enter in its index down below!"""
             print('\nYour chosen article:') # TODO: write both articles
             
             if user_input == 1:
+                from .writings import ARTICLE_A
                 print(
-f"""All executions STOPPED!"""
+f"""All Executions Just STOPPED\n\n{ARTICLE_A}"""
                 )
 
             if user_input == 2:
+                from .writings import ARTICLE_B
                 print(
-f"""Are people CHANGING STREAKS?"""
+f"""Are People CHANGING STREAKS?\n\n{ARTICLE_B}"""
                 )
 
 
@@ -323,13 +325,13 @@ If I really liked something that much, I would remember its code myself.'"""
             return val_return()
 
         if cmd[1] == c.MEL[0]:
-            from .messages import MSGS_W_MEL as CHOSEN_MSGS
+            from .writings import MSGS_W_MEL as CHOSEN_MSGS
 
         elif cmd[1] == c.BAD_SUP[0].lower(): # AFD is uppercase in cmds module
-            from .messages import MSGS_W_BAD_SUP as CHOSEN_MSGS
+            from .writings import MSGS_W_BAD_SUP as CHOSEN_MSGS
 
         elif cmd[1] == c.GOOD_SUP[0]:
-            from .messages import MSGS_W_GOOD_SUP as CHOSEN_MSGS
+            from .writings import MSGS_W_GOOD_SUP as CHOSEN_MSGS
 
         else:
             print(f'Could not find {cmd[1]} in contacts.')

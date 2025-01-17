@@ -28,6 +28,7 @@ class TestRunCmd(unittest.TestCase):
         # e.g., change username to Pony overrides the previous username
         # so user name has to be reset afterwards
 
+        # check for unnecessary folders
         pycache_path = Path("external") / "__pycache__" # pycache in external package
         if pycache_path.is_dir():
             print('\nFYI, a `__pycache__` folder was found in the `external` package.')
@@ -35,6 +36,14 @@ class TestRunCmd(unittest.TestCase):
         pycache_path = Path.cwd() / "__pycache__" # pycache in curr working dir
         if pycache_path.is_dir():
             print('\nFYI, a `__pycache__` folder was found in the current working directory.')
+
+        pycache_path = Path.cwd() / "build" # build folder is created in the process of building an exe
+        if pycache_path.is_dir():
+            print('\nFYI, a `build` folder was found in the current working directory.')
+
+        pycache_path = Path.cwd() / "dist" # distribution folder is where an exe is defaultly present in
+        if pycache_path.is_dir():
+            print('\nFYI, a `dist` folder was found in the current working directory.')
 
 
     def setUp(self):
