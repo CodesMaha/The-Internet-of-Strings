@@ -3,11 +3,12 @@ this module contains all the messages
 according to contacts in sub cmds sect in cmds file
 '''
 
-from .cmds import MEL, GOOD_SUP, BAD_SUP # instances from module
+from .cmds import MEL, GOOD_SUP, BAD_SUP, NYOKA # instances from module
 VIEWER_NAME = 'You'
 
 MEL = MEL[0].capitalize()
 GOOD_SUP = GOOD_SUP[0].capitalize()
+NYOKA = NYOKA[0].capitalize()
 BAD_SUP = BAD_SUP[0] # name not made lowercase for this reason
 
 
@@ -43,7 +44,7 @@ TUESDAY
 
 WEDNESDAY
 
-{VIEWER_NAME}: Hi I'm on leave today. Omw to u.
+{VIEWER_NAME}: Hi Mel I'm on leave today. Omw to u.
 
 {MEL}: YAY! I've got to show you this thing.
 {MEL}: It's a sorta necklace that changes streak col!
@@ -106,6 +107,13 @@ WEDNESDAY
 {BAD_SUP}: Fine!"""
 
 
+MSGS_W_NYOKA = f"""FRIDAY
+{NYOKA}: I named you Maveth because your mother was dead to me after she dared to choose the name of your elder sister. 
+{NYOKA}: I know what you have been up to and it's sick. You have been dead to me ever since you developed that disgusting blood red streak, and especially since you vowed to pause executions. 
+{NYOKA}: WHY COULD YOU NOT BE LIKE THE REST OF YOUR FAMILY? WHY MUST YOU REGUSE TO OBEY US LIKE YOUR SISTER? 
+{NYOKA}: I'm warning you. Don't ever text or visit me again."""
+
+
 ARTICLE_A = """Almost all people with warmer toned streaks disappear. That phenomenon is as old as time. Yet, recently, no unnatural deaths have occurred concerning such people! For liberals such as myself, this is awesome news.
 
 However, many traditionalists find this situation to be unfortunate. 
@@ -122,3 +130,16 @@ However, reports have been going around saying people with similar faces but dis
 Some sources have even been claiming these are government spies looking for victims to execute, and that there is some sort of "TDA" responsible for this. However, while these theories have been circulating for decades, they have never gotten any solid evidence to support them.
 
 It seems these sorts of people will never stop with their conspiracy theories. Regardless of who is responsible for any executions, these freaks certainly deserve whatever comes to them."""
+
+
+SECRET_SITE_INFO = """If you're reading this, it's because you're a new employee and another person at the government decided to give you access to the below information regarding our secret mission. Do not give anyone else access to this passcode unless you or they are trusted. 
+
+Welcome, we hope you have a good stay during your employment here.
+
+You must already know very well that those with warmer tone streaks on the back of their hands are inferior to those with cooler tone streaks. The specific government segment that is in charge of the executions of such people is named 'The Agency For Democide' or the 'AFD'.
+
+Employees of the democide agency can have multiple roles; they can be in charge of editing the database of targets, locating targets, or hunting down targets. They may also be responsible for any related technology or infrastructure.
+
+To disguise as a person with a streak of a specifc colour, we have invented a yet to be released to the public technology that changes the colour of said streaks for the aforementioned goal. Unfortunately, we have lost an amulet from our warehouse, which can be detrimental to the secrecy of our mission. If you find it, do return it to us for you will be rewarded handsomely.
+
+The room these employees work in is under the number 239, next to the laboratory for the creation of sedating drugs."""

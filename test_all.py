@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import patch # for functions with input
 from pathlib import Path # to check for pycache
+
 from external.execution import run_cmd
 from external import cmds
 
@@ -21,6 +22,10 @@ class TestRunCmd(unittest.TestCase):
         with open('external/other_saved_data.py', 'w') as f:
             f.write(default_values)
         del f
+
+        # delete all from saved_files
+        with open('external/saved_files.py', 'w') as f:
+            pass
 
         print('\n\nCarried out a reset.') # have to since some tests alter data, 
         # especially ones with the input function which asks for data.
@@ -54,7 +59,7 @@ class TestRunCmd(unittest.TestCase):
             print(f"\n\nTest # {TestRunCmd.test_counter}\n") # to avoid squishing
     
 
-    @patch('builtins.input', side_effect=['4PurpleBlueberries', '3ricaceae5', '1'])
+    @patch('builtins.input', side_effect=['4PurpleBlueberries', '3ricaceae5', '3'])
     def test_visit(self, mock_input):
         self.assertTrue(run_cmd([cmds.VISIT_SITE[0], cmds.SEE_POP[0]], [], [], [])[0])
 
@@ -96,7 +101,7 @@ class TestRunCmd(unittest.TestCase):
 
     def test_message(self):
         self.assertTrue(run_cmd([cmds.MSG[0], cmds.ALL[0]], [], [], [])[0])
-        self.assertTrue(run_cmd([cmds.MSG[0], cmds.BAD_SUP[0].lower()], [], [], [])[0])
+        self.assertTrue(run_cmd([cmds.MSG[0], cmds.NYOKA[0].lower()], [], [], [])[0])
 
 
     @patch('builtins.input', side_effect=['y', 'lorem ipsum'])
@@ -104,6 +109,10 @@ class TestRunCmd(unittest.TestCase):
         self.assertTrue(run_cmd([cmds.OPEN[0], 'thing to edit'], [], [], [['thing to edit', True, 'edit this']])[0])
         self.assertTrue(run_cmd([cmds.OPEN[0], 'new thing'], [], [['new thing', True, 'lorem ipsum']], [])[0])
 
+
+    @patch('builtins.input', side_effect=['3  '])
+    def test_number_guessing(self, mock_input):
+        result = run_cmd([cmds.VISIT_SITE[0], cmds.NUM_GUESSING[0]], [], [], [])
 
 if __name__ == "__main__":
     unittest.main()

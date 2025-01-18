@@ -14,6 +14,7 @@ logging.debug("\n\nHi, I am a message from the `logging` module in the `executio
 from . import cmds as c # in case a command name is changed, this file will stay error-free
 from . import other_saved_data as d # contains username, password a & b, progress
 # from string import ascii_lowercase
+# from random import randint
 
 def run_cmd(
     cmd: list[str], 
@@ -84,6 +85,7 @@ See other popular codes:
 - {c.VIEW_CONTROLS[0]} {c.HELP[0]}
 - {c.OPEN[0]} filename
 - {c.MSG[0]} {c.ALL[0]}
+- {c.VISIT_SITE[0]} {c.NUM_GUESSING[0]}
 - ...'''
             )
 
@@ -106,19 +108,8 @@ If you don't have one, email us and we may assess your eligibility.'''
                     save_to_data()
 
             if user_input == d.password_b:
-                print(
-"""If you're reading this, it's because you're a new employee and another person at the government decided to give you access to the below information regarding our secret mission. Do not give anyone else access to this passcode unless you or they are trusted. 
-
-Welcome, we hope you have a good stay during your employment here.
-
-You must already know very well that those with warmer tone streaks on the back of their hands are inferior to those with cooler tone streaks. The specific government segment that is in charge of the executions of such people is named 'The Agency For Democide' or the 'AFD'.
-
-Employees of the democide agency can have multiple roles; they can be in charge of editing the database of targets, locating targets, or hunting down targets. They may also be responsible for any related technology or infrastructure.
-
-To disguise as a person with a streak of a specifc colour, we have invented a yet to be released to the public technology that changes the colour of said streaks for the aforementioned goal. Unfortunately, we have lost an amulet from our warehouse, which can be detrimental to the secrecy of our mission. If you find it, do return it to us for you will be rewarded handsomely.
-
-The room these employees work in is under the number 239, next to the laboratory for the creation of sedating drugs."""
-                )
+                from .writings import SECRET_SITE_INFO
+                print(SECRET_SITE_INFO)
 
         
         if cmd[1] == c.NEWS[0]:
@@ -144,7 +135,7 @@ Enter in its index down below!"""
                 try:
                     user_input = int(user_input)
                     break
-                except ValueError:
+                except ValueError: # easier to ask for forgiveness than permission
                     print('\nNon-numeric input detected...')
                     continue
 
@@ -156,11 +147,25 @@ Enter in its index down below!"""
 f"""All Executions Just STOPPED\n\n{ARTICLE_A}"""
                 )
 
-            if user_input == 2:
+            elif user_input == 2:
                 from .writings import ARTICLE_B
                 print(
 f"""Are People CHANGING STREAKS?\n\n{ARTICLE_B}"""
                 )
+
+            else:
+                print("...")
+
+        
+        if cmd[1] == c.NUM_GUESSING[0]:
+            from random import randint
+            random_num = randint(1, 10)
+
+            user_input = input("\nA random integer from one to ten was chosen. \nGuess the number: ")
+            if user_input.strip() == str(random_num):
+                print(f"\nCorrect, the number was {random_num}.")
+            else:
+                print(f"\nIncorrect, the number was {random_num}.")
 
 
     if cmd[0] == c.VIEW_CONTROLS[0]:
@@ -320,6 +325,7 @@ If I really liked something that much, I would remember its code myself.'"""
     if cmd[0] == c.MSG[0]:
 
         if cmd[1] == c.ALL[0]:
+            print('\nYour saved contacts: ')
             for index, name in enumerate(c.MSG[2][1:], 1):
                 print(f'{index}. "{name[0].lower()}";') # all arg should always come first
             return val_return()
@@ -332,6 +338,9 @@ If I really liked something that much, I would remember its code myself.'"""
 
         elif cmd[1] == c.GOOD_SUP[0]:
             from .writings import MSGS_W_GOOD_SUP as CHOSEN_MSGS
+
+        elif cmd[1] == c.NYOKA[0]:
+            from .writings import MSGS_W_NYOKA as CHOSEN_MSGS
 
         else:
             print(f'Could not find {cmd[1]} in contacts.')
