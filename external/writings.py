@@ -3,13 +3,14 @@ this module contains all the messages
 according to contacts in sub cmds sect in cmds file
 '''
 
-from .cmds import MEL, GOOD_SUP, BAD_SUP, NYOKA # instances from module
+from .cmds import MEL, GOOD_SUP, BAD_SUP, NYOKA, MAL_FRIEND # instances from module
 VIEWER_NAME = 'You'
 
 MEL = MEL[0].capitalize()
 GOOD_SUP = GOOD_SUP[0].capitalize()
 NYOKA = NYOKA[0].capitalize()
 BAD_SUP = BAD_SUP[0] # name not made lowercase for this reason
+MAL_FRIEND = MAL_FRIEND[0]
 
 
 MSGS_W_MEL = f"""WEDNESDAY
@@ -108,10 +109,26 @@ WEDNESDAY
 
 
 MSGS_W_NYOKA = f"""FRIDAY
-{NYOKA}: I named you Maveth because your mother was dead to me after she dared to choose the name of your elder sister. 
-{NYOKA}: I know what you have been up to and it's sick. You have been dead to me ever since you developed that disgusting blood red streak, and especially since you vowed to pause executions. 
-{NYOKA}: WHY COULD YOU NOT BE LIKE THE REST OF YOUR FAMILY? WHY MUST YOU REGUSE TO OBEY US LIKE YOUR SISTER? 
-{NYOKA}: I'm warning you. Don't ever text or visit me again."""
+
+{NYOKA}: I named you Maveth for a Reason after your mother named your elder sister, a female firstborn, by herself.
+{NYOKA}: I'm warning you... Don't ever text or vizit me again."""
+
+
+MSGS_W_MAL_FRIEND = f'''WEDNESDAY
+
+{MAL_FRIEND}: Hey Mav, I have sth to tell u...
+
+THURSDAY
+
+{VIEWER_NAME}: Hi Mal. sorry, I was hanging out with my sister.
+{VIEWER_NAME}: what is it?
+
+{MAL_FRIEND}: My pet ferret passed, your dad's car was involved...
+
+{VIEWER_NAME}: .
+{VIEWER_NAME}: I have no words... could we hop on a call for this?
+
+{MAL_FRIEND}: Sure and neither do i'''
 
 
 ARTICLE_A = """Almost all people with warmer toned streaks disappear. That phenomenon is as old as time. Yet, recently, no unnatural deaths have occurred concerning such people! For liberals such as myself, this is awesome news.

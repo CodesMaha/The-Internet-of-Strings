@@ -329,6 +329,8 @@ If I really liked something that much, I would remember its code myself.'"""
             for index, name in enumerate(c.MSG[2][1:], 1):
                 print(f'{index}. "{name[0].lower()}";') # all arg should always come first
             return val_return()
+        
+        # TODO: maybe stop the oh-so many conditional statements
 
         if cmd[1] == c.MEL[0]:
             from .writings import MSGS_W_MEL as CHOSEN_MSGS
@@ -341,6 +343,9 @@ If I really liked something that much, I would remember its code myself.'"""
 
         elif cmd[1] == c.NYOKA[0]:
             from .writings import MSGS_W_NYOKA as CHOSEN_MSGS
+
+        elif cmd[1] == c.MAL_FRIEND[0]:
+            from .writings import MSGS_W_MAL_FRIEND as CHOSEN_MSGS
 
         else:
             print(f'Could not find {cmd[1]} in contacts.')
