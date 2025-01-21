@@ -1,8 +1,8 @@
 # import statements
 from external import cmds, files, saved_files
 from external.execution import run_cmd
-from external.other_saved_data import username
-from external.files import most_sentimental
+from external.other_saved_data import username, progress
+# from external.files import most_sentimental
 
 from platform import system
 curr_sys = system()
@@ -49,8 +49,11 @@ match curr_sys:
         pass
 
 # intro
-print(f"Welcome, {username}! \nFeel free to input the command '{cmds.VISIT_SITE[0]} {cmds.SEE_POP[0]}' if you're just starting out." + f'\n\nAdditionally, your most visited file is "{most_sentimental[0]}".')
-del most_sentimental
+print(f"Welcome, {username}! \nFeel free to input the command '{cmds.VISIT_SITE[0]} {cmds.SEE_POP[0]}' if you're just starting out.")
+if progress == 0: # i knew this var would have a use heheheh
+    from external.files import most_sentimental
+    print(f"\nAdditionally, the previously unsaved changes of 2 characters in the file '{most_sentimental[0]}' were saved before exit.") # TODO: check grammatical
+    del most_sentimental
 
 def ask_user() -> list:
     if_invalid = lambda inputted: f'"{inputted}" is unrecognised code.' # to maintain consistency

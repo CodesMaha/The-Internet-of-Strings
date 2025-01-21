@@ -9,7 +9,10 @@ it is the implementation of all features
 
 import logging
 logging.basicConfig(level=logging.DEBUG, format="%(levelname)s: %(message)s")
-logging.debug("\n\nHi, I am a message from the `logging` module in the `execution.py` file. \nDon't forget to let my module and I leave once this project is finished!\n")
+logging.debug(
+    "\n\nHi, I am a message from the `logging` module in the `execution.py` file. \nDon't forget to let my module and I leave once this project is finished!"
+    + "\n\nAre you confused by this message? No worries, it simply means that the version of the code you ran is decidedly unfinished by the original programmer."
+    + "\n\n===\n")
 
 from . import cmds as c # in case a command name is changed, this file will stay error-free
 from . import other_saved_data as d # contains username, password a & b, progress
@@ -139,19 +142,23 @@ Enter in its index down below!"""
                     print('\nNon-numeric input detected...')
                     continue
 
-            print('\nYour chosen article:') # TODO: write both articles
+            print('\nYour chosen article: ')
             
             if user_input == 1:
-                from .writings import ARTICLE_A
+                from .writings import ARTICLE_A_EXECUTIONS
                 print(
-f"""All Executions Just STOPPED\n\n{ARTICLE_A}"""
+f"""All Executions Just STOPPED\n\n{ARTICLE_A_EXECUTIONS}"""
                 )
 
             elif user_input == 2:
-                from .writings import ARTICLE_B
+                from .writings import ARTICLE_B_DISGUISES
                 print(
-f"""Are People CHANGING STREAKS?\n\n{ARTICLE_B}"""
+f"""Are People CHANGING STREAKS?\n\n{ARTICLE_B_DISGUISES}"""
                 )
+
+            elif user_input == 3:
+                from .writings import ARTICLE_C_VENDORS
+                # TODO: write article on fixed prices regarding streaks
 
             else:
                 print("...")
@@ -239,7 +246,10 @@ If I really liked something that much, I would remember its code myself.'"""
                     
                 if item[1] == False:
                     user_input = input('This file is untrusted by the system.\nWould you still like to open it? (y/n): ')
-                    return val_return(False) if user_input.strip().lower() == 'y' else item[1] == True
+                    if user_input.strip().lower() != 'y': 
+                        return val_return(False) 
+                    else: 
+                        item[1] == True
                     # when bool becomes true, the if statement gets passed before the return is carried out
                 
                 print(f"\nContent of '{item[0]}':\n{item[2]}") # display content and name
@@ -275,8 +285,15 @@ If I really liked something that much, I would remember its code myself.'"""
             cmd[1] = f'_{cmd[1]}'
 
         elif cmd[1] in _all_file_names: # check for identical names with preexisting default system files
-            print(f"\nCannot name file '{cmd[1]}' as that is the name of an older file in the system.\nWill instead name it '_{cmd[1]}'.")
-            cmd[1] = f'_{cmd[1]}'
+
+            # try for a unique name
+            new_cmd = cmd[1] # initialize
+            while new_cmd in _all_file_names:
+                new_cmd = f'_{new_cmd}'
+
+            print(f"\nCannot name file '{cmd[1]}' as that is the name of an older file in the system.\nWill instead name it '{new_cmd}'.")
+            cmd[1] = new_cmd
+            del new_cmd
         
         user_input = input('\nFile content:\n')
 
@@ -331,6 +348,7 @@ If I really liked something that much, I would remember its code myself.'"""
             return val_return()
         
         # TODO: maybe stop the oh-so many conditional statements
+        # could combine files or learn a bit of importlib
 
         if cmd[1] == c.MEL[0]:
             from .writings import MSGS_W_MEL as CHOSEN_MSGS
@@ -347,11 +365,18 @@ If I really liked something that much, I would remember its code myself.'"""
         elif cmd[1] == c.MAL_FRIEND[0]:
             from .writings import MSGS_W_MAL_FRIEND as CHOSEN_MSGS
 
+        elif cmd[1] == c.DB_MANAGER[0]:
+            from .writings import MSGS_W_DB_MANAGER as CHOSEN_MSGS
+
         else:
             print(f'Could not find {cmd[1]} in contacts.')
             return val_return(False)
         
         print("\n" + CHOSEN_MSGS)
+
+
+    if cmd[0] == c.RENAME[0]:
+        print('Unavailable.') # TODO: write
     
 
     if d.progress < 1:

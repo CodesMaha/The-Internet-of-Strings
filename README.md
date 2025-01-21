@@ -2,7 +2,7 @@
 Project in progress, so is the `README.md` file. Would not recommend building an application with current code.
 
 ## Building the application anyway
-**Side note**: This is a rough guide, primarily geared towards Windows. The process may not be exactly like this.
+**Note**: This is a rough guide, primarily geared towards Windows. The process may not be exactly like this.
 - Click on `Code` and then `Download ZIP` on GitHub.
 - Extract the folder in File Explorer.
 - Move the folder inside the folder of the same name outside back into downloads.
@@ -19,5 +19,5 @@ Project in progress, so is the `README.md` file. Would not recommend building an
 
 ---
 
-Start of development: December 19, 2024, 11 A.M. UTC.  
-Creation of public repository: January 15, 2025, 10 P.M. UTC.
+**Start of development**: December 19, 2024, 11 A.M. UTC.  
+**Creation of public repository**: January 15, 2025, 10 P.M. UTC.

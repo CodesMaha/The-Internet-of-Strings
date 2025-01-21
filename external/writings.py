@@ -3,14 +3,16 @@ this module contains all the messages
 according to contacts in sub cmds sect in cmds file
 '''
 
-from .cmds import MEL, GOOD_SUP, BAD_SUP, NYOKA, MAL_FRIEND # instances from module
+from .cmds import MEL, GOOD_SUP, BAD_SUP, NYOKA, MAL_FRIEND, DB_MANAGER # instances from module
 VIEWER_NAME = 'You'
 
+# TODO: perhaps fix all this repetition
 MEL = MEL[0].capitalize()
 GOOD_SUP = GOOD_SUP[0].capitalize()
 NYOKA = NYOKA[0].capitalize()
 BAD_SUP = BAD_SUP[0] # name not made lowercase for this reason
-MAL_FRIEND = MAL_FRIEND[0]
+MAL_FRIEND = MAL_FRIEND[0].capitalize()
+DB_MANAGER = DB_MANAGER[0].capitalize()
 
 
 MSGS_W_MEL = f"""WEDNESDAY
@@ -131,22 +133,40 @@ THURSDAY
 {MAL_FRIEND}: Sure and neither do i'''
 
 
-ARTICLE_A = """Almost all people with warmer toned streaks disappear. That phenomenon is as old as time. Yet, recently, no unnatural deaths have occurred concerning such people! For liberals such as myself, this is awesome news.
+MSGS_W_DB_MANAGER = f"""MONDAY
+
+{DB_MANAGER}: Hey, heard you want to meet a government official..
+
+{VIEWER_NAME}: That's right.
+
+{DB_MANAGER}: What do you want to talk about? I can write a letter for you instead.
+
+{VIEWER_NAME}: I've seen food vendors raise prices for blue tones and change them back for green tones. I've even noted down my encounters in a file `request info` so that I don't have to rely solely on memory for this.
+{VIEWER_NAME}: I'd like for salespeople to not change their prices for different coloured streaks. However, I would also like to discuss this issue directly instead.
+
+{DB_MANAGER}: Sounds good. I'll try to connect you with one.
+{DB_MANAGER}: Good on you for the documentation, BTW."""
+
+
+ARTICLE_A_EXECUTIONS = """Almost all people with warmer toned streaks disappear. That phenomenon is as old as time. Yet, recently, no unnatural deaths have occurred concerning such people! For liberals such as myself, this is awesome news.
 
 However, many traditionalists find this situation to be unfortunate. 
 
 True story: I saw an old lady bawling her eyes out yesternight at the train station, and when I approached her and asked if she was okay, she responded with "A warm dude just stole my purse! If he had passed before, this wouldn't've happend." At the same time, I could clearly see her purse right beside her, because she was literally clutching it with more strength than I could ever possibly expend myself.
 
-The crowd's been pressuring the government to give us answers — though none have been publicised thus far. I, for one, will be rooting for this all to stay this way for as long as possible."""
+The crowd's been pressuring the government to give us answers - though none have been publicised thus far. I, for one, will be rooting for this all to stay this way for as long as possible."""
 
 
-ARTICLE_B = """People with similarly coloured streaks have been staying together in groups. For cooler tones, this is due to a sense of superiority, and for warmer tones, this is so they can stick around for each other.
+ARTICLE_B_DISGUISES = """People with similarly coloured streaks have been staying together in groups. For cooler tones, this is due to a sense of superiority, and for warmer tones, this is so they can stick around for each other.
 
 However, reports have been going around saying people with similar faces but dissimilar streaks have been going around pretending to be part of these groups. For whatever reason, if the group they're going in consists of warmer tones, then it becomes a guarantee for at least a few group members to disappear the very next day.
 
 Some sources have even been claiming these are government spies looking for victims to execute, and that there is some sort of "TDA" responsible for this. However, while these theories have been circulating for decades, they have never gotten any solid evidence to support them.
 
 It seems these sorts of people will never stop with their conspiracy theories. Regardless of who is responsible for any executions, these freaks certainly deserve whatever comes to them."""
+
+
+ARTICLE_C_VENDORS = """""" # TODO: write
 
 
 SECRET_SITE_INFO = """If you're reading this, it's because you're a new employee and another person at the government decided to give you access to the below information regarding our secret mission. Do not give anyone else access to this passcode unless you or they are trusted. 

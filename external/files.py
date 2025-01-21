@@ -30,3 +30,12 @@ changes = [
     '''All targets' status had been set to "free", then all people from the database had been deleted. 
 Nothing out of the ordinary was captured by any CCTV footage and none of our employees really have any clue as to what went on here regarding this issue.'''
 ]
+
+request = [
+    '_request info', True, 
+    '''Last Friday the thirteenth, I was visiting the market. I saw multiple instances of street food vendors practise this one phenomenon, and one restaurant too which got burned down a week later. They would raise their prices for bluer streaks and lower them back down for greener streaks.''']
+
+secret_request = [
+    'request info', True,
+    '''Restaurants kick out red streaks and raise prices to an astronomical level for warmer streaks in general. They also raise prices for bluer streaks since they know they have a higher standard of living and thus can get away with it quite easily.'''
+]

@@ -59,13 +59,14 @@ class TestRunCmd(unittest.TestCase):
             print(f"\n\nTest # {TestRunCmd.test_counter}\n") # to avoid squishing
     
 
-    @patch('builtins.input', side_effect=['4PurpleBlueberries', '3ricaceae5', '3'])
+    @patch('builtins.input', side_effect=['4PurpleBlueberries', '3ricaceae5', 'letters', '2', '24'])
     def test_visit(self, mock_input):
         self.assertTrue(run_cmd([cmds.VISIT_SITE[0], cmds.SEE_POP[0]], [], [], [])[0])
 
         self.assertTrue(run_cmd([cmds.VISIT_SITE[0], cmds.BLUEBERRY[0]], [], [], [])[0]) # try first passcode
         self.assertTrue(run_cmd([cmds.VISIT_SITE[0], cmds.BLUEBERRY[0]], [], [], [])[0]) # try second passcode
 
+        self.assertTrue(run_cmd([cmds.VISIT_SITE[0], cmds.NEWS[0]], [], [], [])[0])
         self.assertTrue(run_cmd([cmds.VISIT_SITE[0], cmds.NEWS[0]], [], [], [])[0])
 
 
@@ -104,8 +105,9 @@ class TestRunCmd(unittest.TestCase):
         self.assertTrue(run_cmd([cmds.MSG[0], cmds.NYOKA[0].lower()], [], [], [])[0])
 
 
-    @patch('builtins.input', side_effect=['y', 'lorem ipsum'])
+    @patch('builtins.input', side_effect=['y', 'y', 'lorem ipsum'])
     def test_open(self, mock_input):
+        self.assertTrue(run_cmd([cmds.OPEN[0], 'untrusted file'], [], [['untrusted file', False, 'trust this']], [])[0])
         self.assertTrue(run_cmd([cmds.OPEN[0], 'thing to edit'], [], [], [['thing to edit', True, 'edit this']])[0])
         self.assertTrue(run_cmd([cmds.OPEN[0], 'new thing'], [], [['new thing', True, 'lorem ipsum']], [])[0])
 
